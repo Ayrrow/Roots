@@ -50,4 +50,8 @@ public class Util {
 		}
 		return false;
 	}
+	
+	public static int intColor(int r, int g, int b){
+		return (r*65536 + g*256 + b);
+	}
 }

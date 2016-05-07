@@ -37,63 +37,6 @@ public class DustPetal extends Item {
 	}
 	
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected){
-		if (stack.hasTagCompound()){
-			if (stack.getTagCompound().getInteger("cooldown") > 0){
-				stack.getTagCompound().setInteger("cooldown", stack.getTagCompound().getInteger("cooldown")-1);
-			}
-			if (stack.getTagCompound().getInteger("uses") == 0){
-				stack.stackSize = 0;
-			}
-		}
-	}
-	
-	@Override
-	public boolean showDurabilityBar(ItemStack stack){
-		if (stack.hasTagCompound()){
-			if (stack.getTagCompound().getInteger("cooldown") == 0){
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack){
-		if (stack.hasTagCompound()){
-			return ((double)stack.getTagCompound().getInteger("cooldown"))/14.0;
-		}
-		return 1.0;
-	}
-	
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-		if (hand == EnumHand.MAIN_HAND || player.isSneaking() && hand == EnumHand.OFF_HAND){
-			if (stack.hasTagCompound()){
-				if (stack.getTagCompound().getInteger("cooldown") == 0 && stack.getTagCompound().getInteger("uses") > 0){
-					stack.getTagCompound().setInteger("cooldown", 14);
-					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses")-1);
-					ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-					System.out.println(stack.getTagCompound().getString("name"));
-					if (comp != null){
-						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+player.getLookVec().xCoord, player.posY+player.getLookVec().yCoord, player.posZ+player.getLookVec().zCoord, stack.getTagCompound().getInteger("potency"), stack.getTagCompound().getInteger("duration"), stack.getTagCompound().getInteger("size"));
-						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+player.getLookVec().xCoord*2.0, player.posY+player.getLookVec().yCoord*2.0, player.posZ+player.getLookVec().zCoord*2.0, stack.getTagCompound().getInteger("potency"), stack.getTagCompound().getInteger("duration"), stack.getTagCompound().getInteger("size")*1.5);
-						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+player.getLookVec().xCoord*3.0, player.posY+player.getLookVec().yCoord*2.0, player.posZ+player.getLookVec().zCoord*3.0, stack.getTagCompound().getInteger("potency"), stack.getTagCompound().getInteger("duration"), stack.getTagCompound().getInteger("size")*2.0);
-					}
-					for (int i = 0; i < 20; i ++){
-						double x = player.posX+player.getLookVec().xCoord+(random.nextFloat()-0.5)*0.25;
-						double y = player.posY+player.eyeHeight+player.getLookVec().yCoord+(random.nextFloat()-0.5)*0.25;
-						double z = player.posZ+player.getLookVec().zCoord+(random.nextFloat()-0.5)*0.25;
-						Herbologia.proxy.spawnParticleMagicFX(world, x, y, z, (x-player.posX)*0.15, ((y)-(player.posY+player.eyeHeight))*0.5+0.15, (z-player.posZ)*0.15, 1, 0, 0);
-					}
-					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-				}
-			}
-		}
-		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-	}
-	
-	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldS, ItemStack newS, boolean slotChanged){
 		if (slotChanged){
 			return true;
@@ -127,13 +70,21 @@ public class DustPetal extends Item {
 		stack.getTagCompound().setInteger("potency", potency);
 		stack.getTagCompound().setInteger("duration", duration);
 		stack.getTagCompound().setInteger("size", size);
-		stack.getTagCompound().setInteger("cooldown", 0);
-		stack.getTagCompound().setInteger("uses",16);
+	}
+	
+	@Override
+	public int getItemStackLimit(){
+		return 1;
 	}
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		if (stack.hasTagCompound()){
+			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+			tooltip.add(ChatFormatting.GOLD + "Type: " + comp.getTextColor() + comp.getEffectName());
+			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " potency.");
+			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("duration") + " duration.");
+			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " size.");
 		}
 	}
 	

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class EntityFXMagic  extends EntityFX {
+public class EntityFXMagicLine  extends EntityFX {
 
 	Random random = new Random();
 	public double colorR = 0;
@@ -16,7 +16,7 @@ public class EntityFXMagic  extends EntityFX {
 	public double colorB = 0;
 	public int lifetime = 8;
 	public ResourceLocation texture = new ResourceLocation("herbologia:entity/magicParticle");
-	public EntityFXMagic(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
+	public EntityFXMagicLine(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
 		super(worldIn, x,y,z,0,0,0);
 		this.colorR = r;
 		this.colorG = g;
