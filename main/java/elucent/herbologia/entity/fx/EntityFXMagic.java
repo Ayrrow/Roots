@@ -21,27 +21,40 @@ public class EntityFXMagic  extends EntityFX {
 		this.colorR = r;
 		this.colorG = g;
 		this.colorB = b;
+		if (this.colorR > 1.0){
+			this.colorR = this.colorR/255.0;
+		}
+		if (this.colorG > 1.0){
+			this.colorG = this.colorG/255.0;
+		}
+		if (this.colorB > 1.0){
+			this.colorB = this.colorB/255.0;
+		}
 		this.setRBGColorF(1, 1, 1);
 		this.particleMaxAge = 8;
-		this.particleGravity = 0.4f;
-		this.xSpeed = vx + (random.nextFloat()-0.5)*0.1;
-		this.ySpeed = vy + (random.nextFloat()-0.5)*0.1;
-		this.zSpeed = vz + (random.nextFloat()-0.5)*0.1;
+		this.xSpeed = vx;
+		this.ySpeed = vy;
+		this.zSpeed = vz;
 	    TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(texture.toString());
 		this.setParticleTexture(sprite);
 	}
 	
 	@Override
+	public boolean func_187111_c(){
+		return true;
+	}
+	
+	@Override
 	public int getFXLayer(){
-		return 0;
+		return 1;
 	}
 	
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		this.xSpeed *= 0.98;
-		this.ySpeed *= 0.98;
-		this.zSpeed *= 0.98;
+		this.xSpeed *= 0.65;
+		this.ySpeed *= 0.65;
+		this.zSpeed *= 0.65;
 		if (random.nextInt(4) >= 2 && this.particleAge > 0){
 			this.particleAge --;
 		}
@@ -50,5 +63,6 @@ public class EntityFXMagic  extends EntityFX {
 		this.particleGreen = (float)colorG*(1.0f-lifeCoeff)+lifeCoeff;
 		this.particleBlue = (float)colorB*(1.0f-lifeCoeff)+lifeCoeff;
 		this.particleAlpha = lifeCoeff;
+		this.particleScale = lifeCoeff;
 	}
 }

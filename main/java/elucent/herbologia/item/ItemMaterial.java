@@ -8,10 +8,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemPestle extends Item {
-	public ItemPestle(){
+public class ItemMaterial extends Item {
+	public ItemMaterial(String name){
 		super();
-		setUnlocalizedName("pestle");
+		setUnlocalizedName(name);
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
 	

@@ -15,6 +15,7 @@ public class EntityFXMagicLine  extends EntityFX {
 	public double colorG = 0;
 	public double colorB = 0;
 	public int lifetime = 8;
+	
 	public ResourceLocation texture = new ResourceLocation("herbologia:entity/magicParticle");
 	public EntityFXMagicLine(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
 		super(worldIn, x,y,z,0,0,0);
@@ -23,28 +24,28 @@ public class EntityFXMagicLine  extends EntityFX {
 		this.colorB = b;
 		this.setRBGColorF(1, 1, 1);
 		this.particleMaxAge = 8;
-		this.particleGravity = 0.4f;
-		this.xSpeed = vx + (random.nextFloat()-0.5)*0.1;
-		this.ySpeed = vy + (random.nextFloat()-0.5)*0.1;
-		this.zSpeed = vz + (random.nextFloat()-0.5)*0.1;
+		this.particleGravity = 0.0f;
+		this.xSpeed = (vx-x)/(double)this.particleMaxAge;
+		this.ySpeed = (vy-y)/(double)this.particleMaxAge;
+		this.zSpeed = (vz-z)/(double)this.particleMaxAge;
 	    TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(texture.toString());
 		this.setParticleTexture(sprite);
 	}
 	
 	@Override
+	public boolean func_187111_c(){
+		return true;
+	}
+	
+	@Override
 	public int getFXLayer(){
-		return 0;
+		return 1;
 	}
 	
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		this.xSpeed *= 0.98;
-		this.ySpeed *= 0.98;
-		this.zSpeed *= 0.98;
-		if (random.nextInt(4) >= 2 && this.particleAge > 0){
-			this.particleAge --;
-		}
+		this.particleAge ++;
 		float lifeCoeff = ((float)this.particleMaxAge-(float)this.particleAge)/(float)this.particleMaxAge;
 		this.particleRed = (float)colorR*(1.0f-lifeCoeff)+lifeCoeff;
 		this.particleGreen = (float)colorG*(1.0f-lifeCoeff)+lifeCoeff;

@@ -90,6 +90,6 @@ public class DustPetal extends Item {
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel(){
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(this, 0, new ModelResourceLocation(getRegistryName(),"inventory"));
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(),"inventory"));
 	}
 }

@@ -1,9 +1,12 @@
 package elucent.herbologia.tileentity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import elucent.herbologia.Herbologia;
 import elucent.herbologia.RegistryManager;
 import elucent.herbologia.Util;
+import elucent.herbologia.component.ComponentBase;
 import elucent.herbologia.component.ComponentManager;
 import elucent.herbologia.item.DustPetal;
 import elucent.herbologia.item.ItemStaff;
@@ -28,6 +31,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 	public ItemStack dust = null;
 	public int progress = 0;
 	public int spin = 0;
+	Random random = new Random();
 	
 	public TileEntityImbuer(){
 		super();
@@ -109,8 +113,41 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		if (dust != null && stick != null){
 			progress ++;
 		}
-		if (progress != 0 && progress % 20 == 0){
-			//SPAWN PARTICLES
+		if (progress != 0 && progress % 5 == 0){
+			int chance = random.nextInt(4);
+			ComponentBase comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
+			if (chance == 0){
+				if (random.nextBoolean()){
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				}
+				else {
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				}
+			}
+			if (chance == 1){
+				if (random.nextBoolean()){
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				}
+				else {
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				}
+			}
+			if (chance == 2){
+				if (random.nextBoolean()){
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				}
+				else {
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				}
+			}
+			if (chance == 3){
+				if (random.nextBoolean()){
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				}
+				else {
+					Herbologia.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				}
+			}
 		}
 		if (progress > 200){
 			progress = 0;

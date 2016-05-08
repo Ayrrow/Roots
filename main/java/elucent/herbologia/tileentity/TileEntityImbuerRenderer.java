@@ -22,17 +22,19 @@ public class TileEntityImbuerRenderer extends TileEntitySpecialRenderer {
 				GL11.glPushMatrix();
 				EntityItem item = new EntityItem(Minecraft.getMinecraft().theWorld,x,y,z,tei.stick);
 				item.hoverStart = 0;
-				Random random = new Random();
-				random.setSeed(item.getEntityItem().hashCode());
-				GL11.glTranslated(x+0.5, y+0.5, z+0.5);
+				GL11.glTranslated(x+0.5, y+0.3125, z+0.5);
 				GL11.glRotated(tei.spin,0,1.0,0);
-				GL11.glTranslated(0.25, 0, 0);
-				GL11.glRotated(45, 0, 0, 1.0);
 				Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
 				GL11.glPopMatrix();
 			}
 			if (tei.dust != null){
-				
+				GL11.glPushMatrix();
+				EntityItem item = new EntityItem(Minecraft.getMinecraft().theWorld,x,y,z,tei.dust);
+				item.hoverStart = 0;
+				GL11.glTranslated(x+0.5, y+0.125, z);
+				GL11.glRotated(90,1.0,0,0);
+				Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
+				GL11.glPopMatrix();
 			}
 		}
 	}

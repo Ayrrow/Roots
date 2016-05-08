@@ -25,4 +25,8 @@ public class CommonProxy {
 	public void spawnParticleMagicFX(World world, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b){
 		//
 	}
+	
+	public void spawnParticleMagicLineFX(World world, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b){
+		//
+	}
 }

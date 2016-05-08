@@ -22,12 +22,12 @@ public class ComponentRose extends ComponentBase {
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){
-			System.out.println("Size = " + size);
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(7+4*potency));
+					targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(9+3*potency));
 					targets.get(i).setLastAttacker(caster);
+					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
 				}
 			}
 		}

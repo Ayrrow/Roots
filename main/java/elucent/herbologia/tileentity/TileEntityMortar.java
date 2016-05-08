@@ -23,6 +23,7 @@ import net.minecraftforge.common.util.Constants;
 
 public class TileEntityMortar extends TEBase {
 	public ItemStack effectItem = null;
+	public ItemStack baseItem = null;
 	public ArrayList<ItemStack> modifiers = new ArrayList<ItemStack>();
 	
 	public TileEntityMortar(){
@@ -98,13 +99,15 @@ public class TileEntityMortar extends TEBase {
 			}
 		}
 		else {
-			if (ComponentManager.isValidEffectItem(heldItem) && effectItem == null){
-				effectItem = new ItemStack(heldItem.getItem(),1,heldItem.getMetadata());
-				heldItem.stackSize --;
-				markDirty();
-				return true;
+			if (effectItem == null){
+				if (ComponentManager.isValidEffectItem(heldItem)){
+					effectItem = new ItemStack(heldItem.getItem(),1,heldItem.getMetadata());
+					heldItem.stackSize --;
+					markDirty();
+					return true;
+				}
 			}
-			else if (heldItem.getItem() == Items.coal && heldItem.getMetadata() == 1 || heldItem.getItem() == Items.ender_pearl || heldItem.getItem() == Items.ender_eye || heldItem.getItem() == Items.redstone || heldItem.getItem() == Items.glowstone_dust || heldItem.getItem() == Items.gunpowder){
+			if (heldItem.getItem() == Items.coal && heldItem.getMetadata() == 1 || heldItem.getItem() == Items.ender_pearl || heldItem.getItem() == Items.ender_eye || heldItem.getItem() == Items.redstone || heldItem.getItem() == Items.glowstone_dust || heldItem.getItem() == Items.gunpowder){
 				if (Util.containsItem(modifiers, Items.coal, 1) && modifiers.size() < 2 || 
 					Util.containsItem(modifiers, Items.ender_pearl) && modifiers.size() < 3 || 
 					Util.containsItem(modifiers, Items.ender_eye) && modifiers.size() < 4 ||

@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import elucent.herbologia.block.BlockImbuer;
 import elucent.herbologia.block.BlockMortar;
 import elucent.herbologia.item.DustPetal;
+import elucent.herbologia.item.ItemMaterial;
 import elucent.herbologia.item.ItemPestle;
 import elucent.herbologia.item.ItemStaff;
 import elucent.herbologia.tileentity.TileEntityImbuer;
@@ -16,7 +17,7 @@ import elucent.herbologia.tileentity.TileEntityMortar;
 import elucent.herbologia.tileentity.TileEntityMortarRenderer;
 
 public class RegistryManager {
-	public static Item dustPetal, pestle, staff;
+	public static Item dustPetal, pestle, staff, dustVerdant, dustCerulean, dustChthonic;
 	public static Block mortar, imbuer;
 	
 	public static void init(){
@@ -26,6 +27,9 @@ public class RegistryManager {
 		GameRegistry.registerItem(dustPetal = new DustPetal(), "dustPetal");
 		GameRegistry.registerItem(pestle = new ItemPestle(), "pestle");
 		GameRegistry.registerItem(staff = new ItemStaff(), "staff");
+		GameRegistry.registerItem(dustVerdant = new ItemMaterial("dustVerdant"), "dustVerdant");
+		GameRegistry.registerItem(dustCerulean = new ItemMaterial("dustCerulean"), "dustCerulean");
+		GameRegistry.registerItem(dustChthonic = new ItemMaterial("dustChthonic"), "dustChthonic");
 		
 		/**
 		 * REGISTERING BLOCKS
@@ -57,9 +61,15 @@ public class RegistryManager {
 		((DustPetal)dustPetal).initModel();
 		((ItemPestle)pestle).initModel();
 		((ItemStaff)staff).initModel();
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemStaff.ColorHandler(), staff);
+		((ItemMaterial)dustVerdant).initModel();
+		((ItemMaterial)dustCerulean).initModel();
+		((ItemMaterial)dustChthonic).initModel();
 		
 		((BlockMortar)mortar).initModel();
 		((BlockImbuer)imbuer).initModel();
+	}
+	
+	public static void registerColorHandlers(){
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemStaff.ColorHandler(), staff);
 	}
 }
