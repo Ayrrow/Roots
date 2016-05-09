@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import elucent.herbologia.component.components.ComponentDandelion;
 import elucent.herbologia.component.components.ComponentRose;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,8 @@ public class ComponentManager {
 	
 	public static void init(){
 		components.add(new ComponentRose().setPrimaryColor(192, 0, 72).setSecondaryColor(0, 200, 48).setTextColor(ChatFormatting.GREEN));
+		components.add(new ComponentDandelion().setPrimaryColor(255,217,102).setSecondaryColor(240,159,10).setTextColor(ChatFormatting.YELLOW));
+		
 	}
 	
 	public static boolean isValidEffectItem(ItemStack stack){

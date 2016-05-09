@@ -59,6 +59,21 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		}
 	}
 	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player){
+		if (stick != null){
+			if (!world.isRemote){
+				world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,stick));
+			}
+		}
+		if (dust != null){
+			if (!world.isRemote){
+				world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,dust));
+			}
+		}
+		this.invalidate();
+	}
+	
 	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
 		if (heldItem == null){
 			if (stick != null){
@@ -113,7 +128,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		if (dust != null && stick != null){
 			progress ++;
 		}
-		if (progress != 0 && progress % 5 == 0){
+		if (progress != 0 && progress % 1 == 0){
 			int chance = random.nextInt(4);
 			ComponentBase comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
 			if (chance == 0){
@@ -149,7 +164,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				}
 			}
 		}
-		if (progress > 200){
+		if (progress > 40){
 			progress = 0;
 			ItemStack staff = new ItemStack(RegistryManager.staff,1,1);
 			String effectName = dust.getTagCompound().getString("effect");

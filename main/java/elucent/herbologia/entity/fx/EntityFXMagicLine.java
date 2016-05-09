@@ -22,6 +22,15 @@ public class EntityFXMagicLine  extends EntityFX {
 		this.colorR = r;
 		this.colorG = g;
 		this.colorB = b;
+		if (this.colorR > 1.0){
+			this.colorR = this.colorR/255.0;
+		}
+		if (this.colorG > 1.0){
+			this.colorG = this.colorG/255.0;
+		}
+		if (this.colorB > 1.0){
+			this.colorB = this.colorB/255.0;
+		}
 		this.setRBGColorF(1, 1, 1);
 		this.particleMaxAge = 8;
 		this.particleGravity = 0.0f;
@@ -45,7 +54,6 @@ public class EntityFXMagicLine  extends EntityFX {
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		this.particleAge ++;
 		float lifeCoeff = ((float)this.particleMaxAge-(float)this.particleAge)/(float)this.particleMaxAge;
 		this.particleRed = (float)colorR*(1.0f-lifeCoeff)+lifeCoeff;
 		this.particleGreen = (float)colorG*(1.0f-lifeCoeff)+lifeCoeff;

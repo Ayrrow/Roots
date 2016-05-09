@@ -54,36 +54,6 @@ public class ItemStaff extends Item {
 		}
 	}
 	
-	/*if (stack.hasTagCompound()){
-			if (stack.getTagCompound().getInteger("cooldown") == 0 && stack.getTagCompound().getInteger("uses") > 0){
-				stack.getTagCompound().setInteger("cooldown", 14);
-				stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
-				ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-				int potency = stack.getTagCompound().getInteger("potency");
-				int duration = stack.getTagCompound().getInteger("duration");
-				int size = stack.getTagCompound().getInteger("size");
-				Random random = new Random();
-				comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, duration, 3.0+2.0*size);
-				for (int i = 0 ; i < 90; i ++){
-					double offX = random.nextFloat()*0.5-0.25;
-					double offY = random.nextFloat()*0.5-0.25;
-					double offZ = random.nextFloat()*0.5-0.25;
-					double coeff = (offX+offY+offZ)/1.5+0.5;
-					double dx = (player.getLookVec().xCoord+offX)*coeff;
-					double dy = (player.getLookVec().yCoord+offY)*coeff;
-					double dz = (player.getLookVec().zCoord+offZ)*coeff;
-					if (random.nextBoolean()){
-						Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
-					}
-					else {
-						Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
-					}
-				}
-				if (stack.getTagCompound().getInteger("uses") == 0){
-					player.inventory.removeStackFromSlot(0);
-				}
-			}
-		}*/
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack){
 		return 72000;
@@ -91,33 +61,35 @@ public class ItemStaff extends Item {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
-		if (stack.hasTagCompound()){
-			if (stack.getTagCompound().getInteger("cooldown") == 0 && stack.getTagCompound().getInteger("uses") > 0){
-				stack.getTagCompound().setInteger("cooldown", 14);
-				stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
-				ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-				int potency = stack.getTagCompound().getInteger("potency");
-				int duration = stack.getTagCompound().getInteger("duration");
-				int size = stack.getTagCompound().getInteger("size");
-				Random random = new Random();
-				comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, duration, 3.0+2.0*size);
-				for (int i = 0 ; i < 90; i ++){
-					double offX = random.nextFloat()*0.5-0.25;
-					double offY = random.nextFloat()*0.5-0.25;
-					double offZ = random.nextFloat()*0.5-0.25;
-					double coeff = (offX+offY+offZ)/1.5+0.5;
-					double dx = (player.getLookVec().xCoord+offX)*coeff;
-					double dy = (player.getLookVec().yCoord+offY)*coeff;
-					double dz = (player.getLookVec().zCoord+offZ)*coeff;
-					if (random.nextBoolean()){
-						Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+		if (timeLeft < (72000-20)){
+			if (stack.hasTagCompound()){
+				if (stack.getTagCompound().getInteger("cooldown") == 0 && stack.getTagCompound().getInteger("uses") > 0){
+					stack.getTagCompound().setInteger("cooldown", 14);
+					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
+					ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+					int potency = stack.getTagCompound().getInteger("potency");
+					int duration = stack.getTagCompound().getInteger("duration");
+					int size = stack.getTagCompound().getInteger("size");
+					Random random = new Random();
+					comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, duration, 3.0+2.0*size);
+					for (int i = 0 ; i < 90; i ++){
+						double offX = random.nextFloat()*0.5-0.25;
+						double offY = random.nextFloat()*0.5-0.25;
+						double offZ = random.nextFloat()*0.5-0.25;
+						double coeff = (offX+offY+offZ)/1.5+0.5;
+						double dx = (player.getLookVec().xCoord+offX)*coeff;
+						double dy = (player.getLookVec().yCoord+offY)*coeff;
+						double dz = (player.getLookVec().zCoord+offZ)*coeff;
+						if (random.nextBoolean()){
+							Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+						}
+						else {
+							Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+						}
 					}
-					else {
-						Herbologia.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+					if (stack.getTagCompound().getInteger("uses") == 0){
+						((EntityPlayer)player).inventory.removeStackFromSlot(0);
 					}
-				}
-				if (stack.getTagCompound().getInteger("uses") == 0){
-					((EntityPlayer)player).inventory.removeStackFromSlot(0);
 				}
 			}
 		}

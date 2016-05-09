@@ -17,7 +17,7 @@ import elucent.herbologia.tileentity.TileEntityMortar;
 import elucent.herbologia.tileentity.TileEntityMortarRenderer;
 
 public class RegistryManager {
-	public static Item dustPetal, pestle, staff, dustVerdant, dustCerulean, dustChthonic;
+	public static Item dustPetal, pestle, staff, oldRoot, verdantSprig, infernalStem, dragonsEye;
 	public static Block mortar, imbuer;
 	
 	public static void init(){
@@ -27,9 +27,10 @@ public class RegistryManager {
 		GameRegistry.registerItem(dustPetal = new DustPetal(), "dustPetal");
 		GameRegistry.registerItem(pestle = new ItemPestle(), "pestle");
 		GameRegistry.registerItem(staff = new ItemStaff(), "staff");
-		GameRegistry.registerItem(dustVerdant = new ItemMaterial("dustVerdant"), "dustVerdant");
-		GameRegistry.registerItem(dustCerulean = new ItemMaterial("dustCerulean"), "dustCerulean");
-		GameRegistry.registerItem(dustChthonic = new ItemMaterial("dustChthonic"), "dustChthonic");
+		GameRegistry.registerItem(oldRoot = new ItemMaterial("oldRoot"), "oldRoot");
+		GameRegistry.registerItem(verdantSprig = new ItemMaterial("verdantSprig"), "verdantSprig");
+		GameRegistry.registerItem(infernalStem = new ItemMaterial("infernalStem"), "infernalStem");
+		GameRegistry.registerItem(dragonsEye = new ItemMaterial("dragonsEye"), "dragonsEye");
 		
 		/**
 		 * REGISTERING BLOCKS
@@ -61,9 +62,10 @@ public class RegistryManager {
 		((DustPetal)dustPetal).initModel();
 		((ItemPestle)pestle).initModel();
 		((ItemStaff)staff).initModel();
-		((ItemMaterial)dustVerdant).initModel();
-		((ItemMaterial)dustCerulean).initModel();
-		((ItemMaterial)dustChthonic).initModel();
+		((ItemMaterial)oldRoot).initModel();
+		((ItemMaterial)verdantSprig).initModel();
+		((ItemMaterial)infernalStem).initModel();
+		((ItemMaterial)dragonsEye).initModel();
 		
 		((BlockMortar)mortar).initModel();
 		((BlockImbuer)imbuer).initModel();

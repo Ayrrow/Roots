@@ -23,7 +23,6 @@ import net.minecraftforge.common.util.Constants;
 
 public class TileEntityMortar extends TEBase {
 	public ItemStack effectItem = null;
-	public ItemStack baseItem = null;
 	public ArrayList<ItemStack> modifiers = new ArrayList<ItemStack>();
 	
 	public TileEntityMortar(){
@@ -61,6 +60,21 @@ public class TileEntityMortar extends TEBase {
 			System.out.println("Taglist: " + list.toString());
 			tag.setTag("modifiers",list);
 		}
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player){
+		if (effectItem != null){
+			if (!world.isRemote){
+				world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,effectItem));
+			}
+		}
+		for (int i = 0; i < modifiers.size(); i ++){
+			if (!world.isRemote){
+				world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,modifiers.get(i)));
+			}
+		}
+		this.invalidate();
 	}
 	
 	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
@@ -101,17 +115,22 @@ public class TileEntityMortar extends TEBase {
 		else {
 			if (effectItem == null){
 				if (ComponentManager.isValidEffectItem(heldItem)){
-					effectItem = new ItemStack(heldItem.getItem(),1,heldItem.getMetadata());
-					heldItem.stackSize --;
-					markDirty();
-					return true;
+					if (Util.containsItem(modifiers, RegistryManager.oldRoot) ||
+						Util.containsItem(modifiers, RegistryManager.verdantSprig) ||
+						Util.containsItem(modifiers, RegistryManager.infernalStem) ||
+						Util.containsItem(modifiers, RegistryManager.dragonsEye)){
+						effectItem = new ItemStack(heldItem.getItem(),1,heldItem.getMetadata());
+						heldItem.stackSize --;
+						markDirty();
+						return true;
+					}
 				}
 			}
-			if (heldItem.getItem() == Items.coal && heldItem.getMetadata() == 1 || heldItem.getItem() == Items.ender_pearl || heldItem.getItem() == Items.ender_eye || heldItem.getItem() == Items.redstone || heldItem.getItem() == Items.glowstone_dust || heldItem.getItem() == Items.gunpowder){
-				if (Util.containsItem(modifiers, Items.coal, 1) && modifiers.size() < 2 || 
-					Util.containsItem(modifiers, Items.ender_pearl) && modifiers.size() < 3 || 
-					Util.containsItem(modifiers, Items.ender_eye) && modifiers.size() < 4 ||
-					heldItem.getItem() == Items.coal && heldItem.getMetadata() == 1 || heldItem.getItem() == Items.ender_pearl || heldItem.getItem() == Items.ender_eye){
+			if (heldItem.getItem() == RegistryManager.oldRoot || heldItem.getItem() == RegistryManager.verdantSprig || heldItem.getItem() == RegistryManager.infernalStem || heldItem.getItem() == RegistryManager.dragonsEye || heldItem.getItem() == Items.redstone || heldItem.getItem() == Items.glowstone_dust || heldItem.getItem() == Items.gunpowder){
+				if (Util.containsItem(modifiers, RegistryManager.verdantSprig) && modifiers.size() < 2 || 
+					Util.containsItem(modifiers, RegistryManager.infernalStem) && modifiers.size() < 3 || 
+					Util.containsItem(modifiers, RegistryManager.dragonsEye) && modifiers.size() < 4 ||
+					heldItem.getItem() == RegistryManager.oldRoot || heldItem.getItem() == RegistryManager.verdantSprig || heldItem.getItem() == RegistryManager.infernalStem || heldItem.getItem() == RegistryManager.dragonsEye){
 					modifiers.add(new ItemStack(heldItem.getItem(),1,heldItem.getMetadata()));
 					heldItem.stackSize --;
 					markDirty();
