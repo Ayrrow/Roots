@@ -104,6 +104,11 @@ public class ItemStaff extends Item {
 	
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldS, ItemStack newS, boolean slotChanged){
+		if (oldS.hasTagCompound() && newS.hasTagCompound()){
+			if (oldS.getTagCompound().getString("effect") != newS.getTagCompound().getString("effect")){
+				return true;
+			}
+		}
 		return slotChanged;
 	}
 	
