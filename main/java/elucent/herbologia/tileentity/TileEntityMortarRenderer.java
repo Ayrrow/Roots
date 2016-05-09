@@ -34,9 +34,7 @@ public class TileEntityMortarRenderer extends TileEntitySpecialRenderer {
 				Random random = new Random();
 				random.setSeed(item.getEntityItem().hashCode());
 				GL11.glTranslated(x, y, z);
-				GL11.glTranslated(0.475+random.nextFloat()/20.0, 0, 0);
-				GL11.glTranslated(0, 0, 0.475+random.nextFloat()/20.0);
-				GL11.glTranslated(0, 0.05+random.nextFloat()/20.0, 0);
+				GL11.glTranslated(0.475+random.nextFloat()/20.0, 0.05+random.nextFloat()/20.0, 0.475+random.nextFloat()/20.0);
 				GL11.glScaled(0.65,0.65,0.65);
 				GL11.glRotated(random.nextInt(360),0,1,0);
 				Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);

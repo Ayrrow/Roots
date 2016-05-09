@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import elucent.herbologia.component.components.ComponentChorus;
 import elucent.herbologia.component.components.ComponentDandelion;
+import elucent.herbologia.component.components.ComponentLilac;
+import elucent.herbologia.component.components.ComponentNetherWart;
 import elucent.herbologia.component.components.ComponentRose;
+import elucent.herbologia.component.components.ComponentSunflower;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -15,6 +19,10 @@ public class ComponentManager {
 	public static void init(){
 		components.add(new ComponentRose().setPrimaryColor(192, 0, 72).setSecondaryColor(0, 200, 48).setTextColor(ChatFormatting.GREEN));
 		components.add(new ComponentDandelion().setPrimaryColor(255,217,102).setSecondaryColor(240,159,10).setTextColor(ChatFormatting.YELLOW));
+		components.add(new ComponentChorus().setPrimaryColor(95,57,95).setSecondaryColor(225,215,225).setTextColor(ChatFormatting.DARK_PURPLE));
+		components.add(new ComponentNetherWart().setPrimaryColor(255,76,36).setSecondaryColor(255,174,0).setTextColor(ChatFormatting.GOLD));
+		components.add(new ComponentSunflower().setPrimaryColor(255,255,128).setSecondaryColor(255,255,255).setTextColor(ChatFormatting.WHITE));
+		components.add(new ComponentLilac().setPrimaryColor(112,80,112).setSecondaryColor(0,112,24).setTextColor(ChatFormatting.GREEN));
 		
 	}
 	
