@@ -36,26 +36,27 @@ public class ComponentLilac extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (40+20*potency), 5));
+					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
 				}
 			}
 		}
-		if (type == EnumCastType.HEX){		
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
-			if (random.nextInt(4) == 0){
-				int i = random.nextInt(targets.size());
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (40+20*potency), 5));
-				}
-			}
-		}
+		
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
 			if (random.nextInt(4) == 0){
 				int i = random.nextInt(targets.size());
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (40+20*potency), 5));
-				}
+				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
+			}
+		}
+	}
+	
+	@Override
+	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
+		if (type == EnumCastType.INCENSE){
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
+			if (random.nextInt(4) == 0){
+				int i = random.nextInt(targets.size());
+				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
 			}
 		}
 	}

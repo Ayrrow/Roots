@@ -31,20 +31,22 @@ public class ComponentRose extends ComponentBase {
 				}
 			}
 		}
-		if (type == EnumCastType.HEX){
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));
-			for (int i = 0; i < targets.size(); i ++){
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(3+2*potency));
-				}
-			}
-		}
 		if (type == EnumCastType.INCENSE){
 			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
 					targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(3+2*potency));
 				}
+			}
+		}
+	}
+	
+	@Override
+	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
+		if (type == EnumCastType.INCENSE){
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));
+			for (int i = 0; i < targets.size(); i ++){
+				targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(3+2*potency));
 			}
 		}
 	}

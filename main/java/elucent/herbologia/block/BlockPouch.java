@@ -1,6 +1,8 @@
 package elucent.herbologia.block;
 
+import elucent.herbologia.tileentity.TileEntityImbuer;
 import elucent.herbologia.tileentity.TileEntityMortar;
+import elucent.herbologia.tileentity.TileEntityPouch;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -18,10 +20,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockMortar extends TEBlockBase implements ITileEntityProvider {
-	public BlockMortar(){
+public class BlockPouch extends TEBlockBase implements ITileEntityProvider {
+	public BlockPouch(){
 		super(Material.ground);
-		setUnlocalizedName("mortar");
+		setUnlocalizedName("pouch");
 		setCreativeTab(CreativeTabs.tabMisc);
 		setHardness(1.0f);
 	}
@@ -38,7 +40,7 @@ public class BlockMortar extends TEBlockBase implements ITileEntityProvider {
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.3125,0,0.3125,0.6875,0.3125,0.6875);
+		return new AxisAlignedBB(0.375,0,0.375,0.625,0.25,0.625);
 	}
 	
 	@Override
@@ -48,6 +50,6 @@ public class BlockMortar extends TEBlockBase implements ITileEntityProvider {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityMortar();
+		return new TileEntityPouch();
 	}
 }

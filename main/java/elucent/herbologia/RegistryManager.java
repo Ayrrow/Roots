@@ -7,6 +7,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import elucent.herbologia.block.BlockImbuer;
 import elucent.herbologia.block.BlockMortar;
+import elucent.herbologia.block.BlockPouch;
 import elucent.herbologia.item.DustPetal;
 import elucent.herbologia.item.ItemMaterial;
 import elucent.herbologia.item.ItemPestle;
@@ -15,10 +16,11 @@ import elucent.herbologia.tileentity.TileEntityImbuer;
 import elucent.herbologia.tileentity.TileEntityImbuerRenderer;
 import elucent.herbologia.tileentity.TileEntityMortar;
 import elucent.herbologia.tileentity.TileEntityMortarRenderer;
+import elucent.herbologia.tileentity.TileEntityPouch;
 
 public class RegistryManager {
 	public static Item dustPetal, pestle, staff, oldRoot, verdantSprig, infernalStem, dragonsEye;
-	public static Block mortar, imbuer;
+	public static Block mortar, imbuer, pouch;
 	
 	public static void init(){
 		/**
@@ -37,12 +39,14 @@ public class RegistryManager {
 		 */
 		GameRegistry.registerBlock(mortar = new BlockMortar(), "mortar");
 		GameRegistry.registerBlock(imbuer = new BlockImbuer(), "imbuer");
+		GameRegistry.registerBlock(pouch = new BlockPouch(), "pouch");
 		
 		/**
 		 * REGISTERING TILE ENTITIES
 		 */
 		GameRegistry.registerTileEntity(TileEntityMortar.class, "TileEntityMortar");
 		GameRegistry.registerTileEntity(TileEntityImbuer.class, "TileEntityImbuer");
+		GameRegistry.registerTileEntity(TileEntityPouch.class, "TileEntityPouch");
 	}
 	
 	public static void registerRecipes(){
@@ -69,6 +73,7 @@ public class RegistryManager {
 		
 		((BlockMortar)mortar).initModel();
 		((BlockImbuer)imbuer).initModel();
+		((BlockPouch)pouch).initModel();
 	}
 	
 	public static void registerColorHandlers(){

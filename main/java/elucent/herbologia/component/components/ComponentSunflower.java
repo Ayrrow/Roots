@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 public class ComponentSunflower extends ComponentBase{
 	Random random = new Random();
 	public ComponentSunflower(){
-		super("sunflower","Daylight",Blocks.double_plant,0);	
+		super("sunflower","Solar Smite",Blocks.double_plant,0);	
 	}
 	
 	@Override
@@ -32,22 +32,31 @@ public class ComponentSunflower extends ComponentBase{
 		if (type == EnumCastType.SPELL){	
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
-				if (targets.get(i).isEntityUndead()){
-					targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(11+4*potency));
-					targets.get(i).setFire((int) (7+4*potency));
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:weakness"), 15, 2+(int)potency));
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), 15, 2+(int)potency));
+				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
+					targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(3+2*potency));
 					targets.get(i).setLastAttacker(caster);
 					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+					if (targets.get(i).isEntityUndead()){
+						targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(11+4*potency));
+						targets.get(i).setFire((int) (7+4*potency));
+						targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:weakness"), 15, 2+(int)potency));
+						targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), 15, 2+(int)potency));
+					}
 				}
 			}
 		}
-		if (type == EnumCastType.HEX){
-			BlockPos pos = new BlockPos(x+(random.nextInt((int)size)-(int)(size-2)),y+(random.nextInt((int)size)-(int)(size-2)),z+(random.nextInt((int)size)-(int)(size-2)));
-			if (world.getBlockState(pos).getBlock().getLightValue(world.getBlockState(pos)) > 0){
-				((Block)world.getBlockState(pos).getBlock()).breakBlock(world, pos, world.getBlockState(pos));
+		if (type == EnumCastType.INCENSE){
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));
+			for (int i = 0; i < targets.size(); i ++){
+				if (targets.get(i).isEntityUndead()){
+					targets.get(i).setFire((int) (5+5*potency));
+				}
 			}
 		}
+	}
+	
+	@Override
+	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.INCENSE){
 			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));
 			for (int i = 0; i < targets.size(); i ++){

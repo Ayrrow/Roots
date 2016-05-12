@@ -38,17 +38,20 @@ public class ComponentNetherWart extends ComponentBase{
 				}
 			}
 		}
-		if (type == EnumCastType.HEX){
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
+
+		if (type == EnumCastType.INCENSE){
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
 			if (random.nextInt(4) == 0){
 				int i = random.nextInt(targets.size());
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).setFire((int) (4+3*potency));
-				}
+				targets.get(i).setFire((int) (4+3*potency));
 			}
 		}
+	}
+	
+	@Override
+	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
+			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
 			if (random.nextInt(4) == 0){
 				int i = random.nextInt(targets.size());
 				targets.get(i).setFire((int) (4+3*potency));

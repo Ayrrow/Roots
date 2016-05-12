@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemStaff extends Item {
+	Random random = new Random();
+	
 	public ItemStaff(){
 		super();
 		setUnlocalizedName("staff");
@@ -46,15 +49,6 @@ public class ItemStaff extends Item {
 	}
 	
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
-		if (stack.hasTagCompound()){
-			if (stack.getTagCompound().getInteger("cooldown") > 0){
-				stack.getTagCompound().setInteger("cooldown", stack.getTagCompound().getInteger("cooldown")-1);
-			}
-		}
-	}
-	
-	@Override
 	public int getMaxItemUseDuration(ItemStack stack){
 		return 72000;
 	}
@@ -63,8 +57,7 @@ public class ItemStaff extends Item {
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
 		if (timeLeft < (72000-20)){
 			if (stack.hasTagCompound()){
-				if (stack.getTagCompound().getInteger("cooldown") == 0 && stack.getTagCompound().getInteger("uses") > 0){
-					stack.getTagCompound().setInteger("cooldown", 14);
+				if (stack.getTagCompound().getInteger("uses") > 0){
 					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
 					ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
 					int potency = stack.getTagCompound().getInteger("potency");
@@ -88,11 +81,17 @@ public class ItemStaff extends Item {
 						}
 					}
 					if (stack.getTagCompound().getInteger("uses") == 0){
-						((EntityPlayer)player).inventory.removeStackFromSlot(0);
+						stack.setTagCompound(new NBTTagCompound());
+						stack.setItem(Items.stick);
 					}
 				}
 			}
 		}
+	}
+	
+	@Override
+	public int getItemStackLimit(){
+		return 1;
 	}
 	
 	@Override
@@ -112,6 +111,19 @@ public class ItemStaff extends Item {
 		return slotChanged;
 	}
 	
+	@Override
+	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count){
+		if (stack.hasTagCompound()){
+			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+			if (random.nextBoolean()){	
+				Herbologia.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+			}
+			else {
+				Herbologia.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+			}
+		}
+	}
+	
 	public static void createData(ItemStack stack, String effect, int potency, int duration, int size){
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setString("effect", effect);
@@ -119,7 +131,6 @@ public class ItemStaff extends Item {
 		stack.getTagCompound().setInteger("duration", duration);
 		stack.getTagCompound().setInteger("size", size);
 		stack.getTagCompound().setInteger("uses", 65+64*duration);
-		stack.getTagCompound().setInteger("cooldown", 0);
 	}
 	
 	@Override

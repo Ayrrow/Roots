@@ -85,4 +85,8 @@ public class ComponentBase {
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		
 	}
+	
+	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
+		
+	}
 }

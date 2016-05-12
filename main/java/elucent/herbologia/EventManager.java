@@ -10,9 +10,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -43,6 +45,18 @@ public class EventManager {
 				event.getDrops().add(new ItemStack(RegistryManager.dragonsEye,1));
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event){
+		if (PlayerManager.hasEffect(event.getEntityPlayer(), "allium") && random.nextInt(4) != 0){
+			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onTick(TickEvent.ServerTickEvent event){
+		PlayerManager.updateEffects();
 	}
 	
 	@SideOnly(Side.CLIENT)
