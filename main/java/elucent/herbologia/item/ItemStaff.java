@@ -61,10 +61,11 @@ public class ItemStaff extends Item {
 					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
 					ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
 					int potency = stack.getTagCompound().getInteger("potency");
-					int duration = stack.getTagCompound().getInteger("duration");
+					int efficiency = stack.getTagCompound().getInteger("efficiency");
 					int size = stack.getTagCompound().getInteger("size");
+					double xpCost = (comp.xpCost + potency)*(1.0-0.25*(double)efficiency);
 					Random random = new Random();
-					comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, duration, 3.0+2.0*size);
+					comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
 					for (int i = 0 ; i < 90; i ++){
 						double offX = random.nextFloat()*0.5-0.25;
 						double offY = random.nextFloat()*0.5-0.25;
@@ -124,13 +125,13 @@ public class ItemStaff extends Item {
 		}
 	}
 	
-	public static void createData(ItemStack stack, String effect, int potency, int duration, int size){
+	public static void createData(ItemStack stack, String effect, int potency, int efficiency, int size){
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setString("effect", effect);
 		stack.getTagCompound().setInteger("potency", potency);
-		stack.getTagCompound().setInteger("duration", duration);
+		stack.getTagCompound().setInteger("efficiency", efficiency);
 		stack.getTagCompound().setInteger("size", size);
-		stack.getTagCompound().setInteger("uses", 65+64*duration);
+		stack.getTagCompound().setInteger("uses", 65);
 	}
 	
 	@Override
@@ -139,7 +140,7 @@ public class ItemStaff extends Item {
 			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
 			tooltip.add(ChatFormatting.GOLD + "Type: " + comp.getTextColor() + comp.getEffectName());
 			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " potency.");
-			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("duration") + " duration.");
+			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " efficiency.");
 			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " size.");
 			tooltip.add("");
 			tooltip.add(ChatFormatting.GOLD + Integer.toString(stack.getTagCompound().getInteger("uses")) + " uses remaining.");

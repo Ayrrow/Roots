@@ -46,21 +46,19 @@ public class DustPetal extends Item {
 		}
 	}
 	
-	public static void createData(ItemStack stack, ArrayList<ItemStack> items){
+	public static void createData(ItemStack stack, String effect, ArrayList<ItemStack> items){
 		stack.setTagCompound(new NBTTagCompound());
 		int potency = 0;
-		int duration = 0;
+		int efficiency = 0;
 		int size = 0;
+		stack.getTagCompound().setString("effect", effect);
 		for (int i = 0; i < items.size(); i ++){
-			if (ComponentManager.isValidEffectItem(items.get(i))){
-				stack.getTagCompound().setString("effect", ComponentManager.getComponentFromItem(items.get(i)).getName());
-			}
 			if (items.get(i) != null){
 				if (items.get(i).getItem() == Items.glowstone_dust){
 					potency ++;
 				}
 				if (items.get(i).getItem() == Items.redstone){
-					duration ++;
+					efficiency ++;
 				}
 				if (items.get(i).getItem() == Items.gunpowder){
 					size ++;
@@ -68,7 +66,7 @@ public class DustPetal extends Item {
 			}
 		}
 		stack.getTagCompound().setInteger("potency", potency);
-		stack.getTagCompound().setInteger("duration", duration);
+		stack.getTagCompound().setInteger("efficiency", efficiency);
 		stack.getTagCompound().setInteger("size", size);
 	}
 	
@@ -83,7 +81,7 @@ public class DustPetal extends Item {
 			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
 			tooltip.add(ChatFormatting.GOLD + "Type: " + comp.getTextColor() + comp.getEffectName());
 			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " potency.");
-			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("duration") + " duration.");
+			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " efficiency.");
 			tooltip.add(ChatFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " size.");
 		}
 	}

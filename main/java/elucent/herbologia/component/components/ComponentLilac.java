@@ -27,25 +27,51 @@ import net.minecraft.world.World;
 public class ComponentLilac extends ComponentBase{
 	Random random = new Random();
 	public ComponentLilac(){
-		super("lilac","Entangle",Blocks.double_plant,1);	
+		super("lilac","Growth",Blocks.double_plant,1,3);	
+	}
+	
+	public void growBlockSafe(World world, BlockPos pos, int potency){
+		if (world.getBlockState(pos).getBlock() instanceof IGrowable && random.nextInt(4-(int)potency) == 0){
+			((IGrowable)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
+		}
 	}
 	
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
-			for (int i = 0; i < targets.size(); i ++){
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
+			if (caster instanceof EntityPlayer && !world.isRemote){
+				BlockPos pos = ((EntityPlayer)caster).rayTrace(4+2*size, 0).getBlockPos();
+				growBlockSafe(world, pos, (int)potency);
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.east(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.west(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.north(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.south(), (int)potency);
 				}
 			}
 		}
-		
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
-			if (random.nextInt(4) == 0){
-				int i = random.nextInt(targets.size());
-				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
+			for (int i = 0; i < 1+potency; i ++){
+				BlockPos pos = new BlockPos(x+(random.nextInt(9+2*(int)size)-(4+size)),y+(random.nextInt(9+2*(int)size)-(4+size)),z+(random.nextInt(9+2*(int)size)-(4+size)));
+				growBlockSafe(world,pos,(int)potency);
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.east(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.west(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.north(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.south(), (int)potency);
+				}
 			}
 		}
 	}
@@ -53,10 +79,21 @@ public class ComponentLilac extends ComponentBase{
 	@Override
 	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
-			if (random.nextInt(4) == 0){
-				int i = random.nextInt(targets.size());
-				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), (int) (80+40*potency), 5));
+			for (int i = 0; i < 1+potency; i ++){
+				BlockPos pos = new BlockPos(x+(random.nextInt(9+2*(int)size)-(4+size)),y+(random.nextInt(9+2*(int)size)-(4+size)),z+(random.nextInt(9+2*(int)size)-(4+size)));
+				growBlockSafe(world,pos,(int)potency);
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.east(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.west(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.north(), (int)potency);
+				}
+				if (random.nextBoolean()){
+					growBlockSafe(world, pos.south(), (int)potency);
+				}
 			}
 		}
 	}

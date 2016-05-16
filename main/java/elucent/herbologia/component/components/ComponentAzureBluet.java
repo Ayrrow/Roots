@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 public class ComponentAzureBluet extends ComponentBase{
 	Random random = new Random();
 	public ComponentAzureBluet(){
-		super("azurebluet","Shatter",Blocks.red_flower,3);	
+		super("azurebluet","Shatter",Blocks.red_flower,2);	
 	}
 	
 	public void destroyBlockSafe(World world, BlockPos pos, int potency){

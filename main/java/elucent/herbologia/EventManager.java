@@ -10,6 +10,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
@@ -51,6 +54,32 @@ public class EventManager {
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event){
 		if (PlayerManager.hasEffect(event.getEntityPlayer(), "allium") && random.nextInt(4) != 0){
 			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingDrops(LivingDropsEvent event){
+		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_dropItems")){
+			if (!event.getEntityLiving().getEntityData().getBoolean("HBMOD_dropItems")){
+				event.setCanceled(true);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingXP(LivingExperienceDropEvent event){
+		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_dropItems")){
+			if (!event.getEntityLiving().getEntityData().getBoolean("HBMOD_dropItems")){
+				event.setCanceled(true);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingDamage(LivingHurtEvent event){
+		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_vuln")){
+			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("HBMOD_vuln"))));
+			event.getEntityLiving().getEntityData().removeTag("HBMOD_vuln");
 		}
 	}
 	

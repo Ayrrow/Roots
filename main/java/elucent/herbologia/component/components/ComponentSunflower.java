@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 public class ComponentSunflower extends ComponentBase{
 	Random random = new Random();
 	public ComponentSunflower(){
-		super("sunflower","Solar Smite",Blocks.double_plant,0);	
+		super("sunflower","Solar Smite",Blocks.double_plant,0,3);	
 	}
 	
 	@Override

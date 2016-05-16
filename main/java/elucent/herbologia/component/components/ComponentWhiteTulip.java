@@ -31,16 +31,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 
-public class ComponentAllium extends ComponentBase{
+public class ComponentWhiteTulip extends ComponentBase{
 	Random random = new Random();
-	public ComponentAllium(){
-		super("allium","Allium's Chaos",Blocks.red_flower,3);	
-	}
-	
-	public void destroyBlockSafe(World world, BlockPos pos, int potency){
-		if (world.getBlockState(pos).getBlock().getHarvestLevel(world.getBlockState(pos)) <= 2+potency && world.getBlockState(pos).getBlock().getBlockHardness(world.getBlockState(pos), world, pos) != -1){
-			world.destroyBlock(pos, true);
-		}
+	public ComponentWhiteTulip(){
+		super("whitetulip","Blistering Cold",Blocks.red_flower,6,3);	
 	}
 	
 	@Override
@@ -49,25 +43,18 @@ public class ComponentAllium extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).attackEntityFrom(DamageSource.generic, (int)(3+2*potency));
+					targets.get(i).attackEntityFrom(DamageSource.generic, (int)(5+3*potency));
+					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),200+100*(int)potency,(int)potency));
 					targets.get(i).setLastAttacker(caster);
 					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
-					List<ItemStack> equipment = Lists.newArrayList(targets.get(i).getEquipmentAndArmor());
-					for (int j = 0; j < equipment.size(); j ++){
-						if (equipment.get(j) != null){
-							if (equipment.get(j).isItemStackDamageable()){
-								equipment.get(j).damageItem((int)(random.nextInt(16+8*(int)potency)+8+4*potency), targets.get(i));
-							}
-						}
-					}
 				}
 			}
 		}
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityPlayer> targets = (ArrayList<EntityPlayer>) world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
+			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
 			for (int i = 0; i < targets.size(); i ++){
-				if (random.nextInt(10) == 0){
-					PlayerManager.addEffect(new ComponentEffect("allium",40,targets.get(i)));
+				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
+					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),40,(int)potency));
 				}
 			}
 		}
@@ -76,9 +63,9 @@ public class ComponentAllium extends ComponentBase{
 	@Override
 	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityPlayer> targets = (ArrayList<EntityPlayer>) world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
+			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
 			for (int i = 0; i < targets.size(); i ++){
-				PlayerManager.addEffect(new ComponentEffect(this.getName(), 22, targets.get(i)));
+				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),40,(int)potency));
 			}
 		}
 	}

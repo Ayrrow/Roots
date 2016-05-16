@@ -18,13 +18,13 @@ import net.minecraft.world.World;
 public class ComponentPeony extends ComponentBase{
 	Random rnd = new Random();
 	public ComponentPeony(){
-		super("peony", "Peony's Caress", Blocks.double_plant,5);
+		super("peony", "Peony's Caress", Blocks.double_plant,5,5);
 	}
 	
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){
-			((EntityLivingBase) caster).heal((float)(3+(potency==0?1:potency*1)));
+			((EntityLivingBase) caster).heal((float)(3+potency));
 		}
 		if (type == EnumCastType.HEX){
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-1.5*size,y-1.5*size,z-1.5*size,x+1.5*size,y+1.5*size,z+1.5*size));

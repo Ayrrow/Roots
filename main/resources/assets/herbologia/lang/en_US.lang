@@ -5,7 +5,16 @@ item.oldRoot.name=Old Root
 item.verdantSprig.name=Verdant Sprig
 item.infernalStem.name=Infernal Bulb
 item.dragonsEye.name=Dragon's Eye
+item.acaciaTreeBark.name=Acacia Bark
+item.darkOakTreeBark.name=Dark Oak Bark
+item.birchTreeBark.name=Birch Bark
+item.jungleTreeBark.name=Jungle Bark
+item.oakTreeBark.name=Oak Bark
+item.spruceTreeBark.name=Spruce Bark
+item.druidKnife.name=Bark Knife
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
-tile.pouch.name=Incense Pouch
+tile.altar.name=Casting Altar
+tile.druidChalice.name=Druidic Chalice
+tile.standingStoneT1.name=Mundane Standing Stone

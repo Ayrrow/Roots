@@ -20,11 +20,8 @@ public class TileEntityMortarRenderer extends TileEntitySpecialRenderer {
 			TileEntityMortar tem = (TileEntityMortar)te;
 			ArrayList<ItemStack> renderItems = new ArrayList<ItemStack>();
 			
-			if (tem.effectItem != null){
-				renderItems.add(tem.effectItem);
-			}
-			for (int i = 0; i < tem.modifiers.size(); i ++){
-				renderItems.add(tem.modifiers.get(i));
+			for (int i = 0; i < tem.inventory.size(); i ++){
+				renderItems.add(tem.inventory.get(i));
 			}
 			
 			for (int i = 0; i < renderItems.size(); i ++){
