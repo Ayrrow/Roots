@@ -35,10 +35,8 @@ public class TileEntityMortar extends TEBase {
 		inventory = new ArrayList<ItemStack>();
 		if (tag.hasKey("modifiers")){
 			NBTTagList list = tag.getTagList("modifiers", Constants.NBT.TAG_COMPOUND);
-			System.out.println("Loading taglist: " + list.toString());
 			for (int i = 0; i < list.tagCount(); i ++){
 				inventory.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
-				System.out.println("  - Added item: " + inventory.get(inventory.size()-1).toString());
 			}
 		}
 	}

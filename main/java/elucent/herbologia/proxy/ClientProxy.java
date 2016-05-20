@@ -2,6 +2,8 @@ package elucent.herbologia.proxy;
 
 import elucent.herbologia.RegistryManager;
 import elucent.herbologia.entity.fx.EntityFXMagic;
+import elucent.herbologia.entity.fx.EntityFXMagicAltar;
+import elucent.herbologia.entity.fx.EntityFXMagicAltarLine;
 import elucent.herbologia.entity.fx.EntityFXMagicLine;
 import elucent.herbologia.item.ItemStaff;
 import net.minecraft.client.Minecraft;
@@ -36,6 +38,18 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void spawnParticleMagicLineFX(World world, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b){
 		EntityFXMagicLine particle = new EntityFXMagicLine(world,x,y,z,vx,vy,vz,r,g,b);
+		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+	}
+	
+	@Override
+	public void spawnParticleMagicAltarLineFX(World world, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b){
+		EntityFXMagicAltarLine particle = new EntityFXMagicAltarLine(world,x,y,z,vx,vy,vz,r,g,b);
+		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+	}
+	
+	@Override
+	public void spawnParticleMagicAltarFX(World world, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b){
+		EntityFXMagicAltar particle = new EntityFXMagicAltar(world,x,y,z,vx,vy,vz,r,g,b);
 		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 	}
 }

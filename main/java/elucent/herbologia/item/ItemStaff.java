@@ -65,6 +65,7 @@ public class ItemStaff extends Item {
 					int size = stack.getTagCompound().getInteger("size");
 					double xpCost = (comp.xpCost + potency)*(1.0-0.25*(double)efficiency);
 					Random random = new Random();
+					((EntityPlayer)player).experienceTotal --;
 					comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
 					for (int i = 0 ; i < 90; i ++){
 						double offX = random.nextFloat()*0.5-0.25;

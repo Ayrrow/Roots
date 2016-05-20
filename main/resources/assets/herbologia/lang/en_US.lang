@@ -12,9 +12,11 @@ item.jungleTreeBark.name=Jungle Bark
 item.oakTreeBark.name=Oak Bark
 item.spruceTreeBark.name=Spruce Bark
 item.druidKnife.name=Bark Knife
+item.crystalStaff.name=Crystal Staff
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
 tile.altar.name=Casting Altar
 tile.druidChalice.name=Druidic Chalice
 tile.standingStoneT1.name=Mundane Standing Stone
+tile.brazier.name=Incense Brazier

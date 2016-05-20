@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class EntityFXMagic  extends EntityFX {
+public class EntityFXMagicAltar  extends EntityFX {
 
 	Random random = new Random();
 	public double colorR = 0;
@@ -16,7 +16,7 @@ public class EntityFXMagic  extends EntityFX {
 	public double colorB = 0;
 	public int lifetime = 8;
 	public ResourceLocation texture = new ResourceLocation("herbologia:entity/magicParticle");
-	public EntityFXMagic(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
+	public EntityFXMagicAltar(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
 		super(worldIn, x,y,z,0,0,0);
 		this.colorR = r;
 		this.colorG = g;
@@ -31,10 +31,11 @@ public class EntityFXMagic  extends EntityFX {
 			this.colorB = this.colorB/255.0;
 		}
 		this.setRBGColorF(1, 1, 1);
-		this.particleMaxAge = 20;
+		this.particleMaxAge = 8;
 		this.xSpeed = vx;
 		this.ySpeed = vy;
 		this.zSpeed = vz;
+		this.particleScale = 0.5f;
 	    TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(texture.toString());
 		this.setParticleTexture(sprite);
 	}
@@ -52,10 +53,10 @@ public class EntityFXMagic  extends EntityFX {
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		this.xSpeed *= 0.65;
-		this.ySpeed *= 0.65;
-		this.zSpeed *= 0.65;
-		if (random.nextInt(4) == 0){
+		this.xSpeed *= 0.9;
+		this.ySpeed += 0.01;
+		this.zSpeed *= 0.9;
+		if (random.nextInt(4) >= 2 && this.particleAge > 0){
 			this.particleAge --;
 		}
 		float lifeCoeff = ((float)this.particleMaxAge-(float)this.particleAge)/(float)this.particleMaxAge;
@@ -64,5 +65,11 @@ public class EntityFXMagic  extends EntityFX {
 		this.particleBlue = (float)colorB*(1.0f-lifeCoeff)+lifeCoeff;
 		this.particleAlpha = lifeCoeff;
 		this.particleScale = lifeCoeff;
+		if (lifeCoeff > 0.5){
+			this.particleScale = 0.5f+4.0f*(1.0f-lifeCoeff);
+		}
+		if (lifeCoeff <= 0.5){
+			this.particleScale = 5.0f*(lifeCoeff);
+		}
 	}
 }

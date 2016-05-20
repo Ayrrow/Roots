@@ -1,23 +1,27 @@
 package elucent.herbologia;
 
 import elucent.herbologia.block.BlockAltar;
+import elucent.herbologia.block.BlockBrazier;
 import elucent.herbologia.block.BlockDruidChalice;
 import elucent.herbologia.block.BlockImbuer;
 import elucent.herbologia.block.BlockMortar;
 import elucent.herbologia.block.BlockStandingStoneT1;
 import elucent.herbologia.item.DustPetal;
+import elucent.herbologia.item.ItemCrystalStaff;
 import elucent.herbologia.item.ItemDruidKnife;
 import elucent.herbologia.item.ItemMaterial;
 import elucent.herbologia.item.ItemPestle;
 import elucent.herbologia.item.ItemStaff;
 import elucent.herbologia.item.ItemTreeBark;
 import elucent.herbologia.tileentity.TileEntityAltar;
+import elucent.herbologia.tileentity.TileEntityAltarRenderer;
+import elucent.herbologia.tileentity.TileEntityBrazier;
+import elucent.herbologia.tileentity.TileEntityBrazierRenderer;
 import elucent.herbologia.tileentity.TileEntityDruidChalice;
 import elucent.herbologia.tileentity.TileEntityImbuer;
 import elucent.herbologia.tileentity.TileEntityImbuerRenderer;
 import elucent.herbologia.tileentity.TileEntityMortar;
 import elucent.herbologia.tileentity.TileEntityMortarRenderer;
-import elucent.herbologia.tileentity.TileEntityPouch;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -25,8 +29,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class RegistryManager {
-	public static Item dustPetal, pestle, staff, oldRoot, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark;
-	public static Block mortar, imbuer, altar, druidChalice, standingStoneT1;
+	public static Item dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark;
+	public static Block mortar, imbuer, altar, druidChalice, standingStoneT1, brazier;
 	
 	public static void init(){
 		/**
@@ -36,6 +40,7 @@ public class RegistryManager {
 		GameRegistry.registerItem(dustPetal = new DustPetal(), "dustPetal");
 		GameRegistry.registerItem(pestle = new ItemPestle(), "pestle");
 		GameRegistry.registerItem(staff = new ItemStaff(), "staff");
+		GameRegistry.registerItem(crystalStaff = new ItemCrystalStaff(), "crystalStaff");
 		GameRegistry.registerItem(oldRoot = new ItemMaterial("oldRoot"), "oldRoot");
 		GameRegistry.registerItem(verdantSprig = new ItemMaterial("verdantSprig"), "verdantSprig");
 		GameRegistry.registerItem(infernalStem = new ItemMaterial("infernalStem"), "infernalStem");
@@ -52,6 +57,7 @@ public class RegistryManager {
 		 */
 		GameRegistry.registerBlock(mortar = new BlockMortar(), "mortar");
 		GameRegistry.registerBlock(altar = new BlockAltar(), "altar");
+		GameRegistry.registerBlock(brazier = new BlockBrazier(), "brazier");
 		GameRegistry.registerBlock(imbuer = new BlockImbuer(), "imbuer");
 		GameRegistry.registerBlock(druidChalice = new BlockDruidChalice(),"druidChalice");
 		GameRegistry.registerBlock(standingStoneT1 = new BlockStandingStoneT1(),"standingStoneT1");
@@ -63,6 +69,7 @@ public class RegistryManager {
 		GameRegistry.registerTileEntity(TileEntityImbuer.class, "TileEntityImbuer");
 		GameRegistry.registerTileEntity(TileEntityAltar.class, "TileEntityAltar");
 		GameRegistry.registerTileEntity(TileEntityDruidChalice.class,"TileEntityDruidChalice");
+		GameRegistry.registerTileEntity(TileEntityBrazier.class,"TileEntityBrazier");
 	}
 	
 	public static void registerRecipes(){
@@ -74,7 +81,9 @@ public class RegistryManager {
 		 * REGISTERING TILE ENTITY RENDERERS
 		 */
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMortar.class, new TileEntityMortarRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAltar.class, new TileEntityAltarRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityImbuer.class, new TileEntityImbuerRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBrazier.class, new TileEntityBrazierRenderer());
 		
 		/**
 		 * REGISTERING ITEM MODELS
@@ -83,6 +92,7 @@ public class RegistryManager {
 		((DustPetal)dustPetal).initModel();
 		((ItemPestle)pestle).initModel();
 		((ItemStaff)staff).initModel();
+		((ItemCrystalStaff)crystalStaff).initModel();
 		((ItemMaterial)oldRoot).initModel();
 		((ItemMaterial)verdantSprig).initModel();
 		((ItemMaterial)infernalStem).initModel();
@@ -97,6 +107,7 @@ public class RegistryManager {
 		((BlockDruidChalice)druidChalice).initModel();
 		((BlockMortar)mortar).initModel();
 		((BlockAltar)altar).initModel();
+		((BlockBrazier)brazier).initModel();
 		((BlockImbuer)imbuer).initModel();
 		((BlockStandingStoneT1)standingStoneT1).initModel();
 	}
