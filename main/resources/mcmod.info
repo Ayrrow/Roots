@@ -1,0 +1,16 @@
+[
+{
+  "modid": "herbologia",
+  "name": "Herbologia",
+  "description": "Plant-based spellcraft.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Elucent"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
