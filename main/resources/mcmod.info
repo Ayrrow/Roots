@@ -1,13 +1,13 @@
 [
 {
-  "modid": "herbologia",
-  "name": "Herbologia",
-  "description": "Plant-based spellcraft.",
+  "modid": "roots",
+  "name": "Roots",
+  "description": "Druidic Magic Mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Elucent"],
+  "authorList": ["Elucent","Leordas"],
   "credits": "",
   "logoFile": "",
   "screenshots": [],
