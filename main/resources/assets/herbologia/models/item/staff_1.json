@@ -1,8 +1,0 @@
-{
-    "parent" : "item/handheld",
-    "textures" : {
-        "layer0" : "herbologia:items/staffBase",
-        "layer1" : "herbologia:items/staffGlow2",
-        "layer2" : "herbologia:items/staffGlow1"
-    }
-}
