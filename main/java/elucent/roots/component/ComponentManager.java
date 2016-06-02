@@ -11,6 +11,7 @@ import elucent.roots.component.components.ComponentChorus;
 import elucent.roots.component.components.ComponentDandelion;
 import elucent.roots.component.components.ComponentLilac;
 import elucent.roots.component.components.ComponentLilyPad;
+import elucent.roots.component.components.ComponentMidnightBloom;
 import elucent.roots.component.components.ComponentNetherWart;
 import elucent.roots.component.components.ComponentOrangeTulip;
 import elucent.roots.component.components.ComponentOxeyeDaisy;
@@ -50,6 +51,7 @@ public class ComponentManager {
 		components.add(new ComponentPinkTulip().setPrimaryColor(255,0,51).setSecondaryColor(255,0,249).setTextColor(TextFormatting.LIGHT_PURPLE));
 		components.add(new ComponentOxeyeDaisy().setPrimaryColor(255,254,206).setSecondaryColor(52,0,74).setTextColor(TextFormatting.WHITE));
 		components.add(new ComponentLilyPad().setPrimaryColor(36,255,167).setSecondaryColor(8,0,255).setTextColor(TextFormatting.BLUE));
+		components.add(new ComponentMidnightBloom().setPrimaryColor(12,6,36).setSecondaryColor(18,18,18).setTextColor(TextFormatting.DARK_PURPLE));
 		
 		recipes.add(new ComponentRecipe("rosebush")
 					.addIngredient(new ItemStack(Blocks.DOUBLE_PLANT,1,4))
@@ -135,6 +137,11 @@ public class ComponentManager {
 					.addIngredient(new ItemStack(Items.APPLE,1))
 					.addIngredient(new ItemStack(Items.SPECKLED_MELON,1))
 					.addIngredient(new ItemStack(Items.GOLDEN_APPLE,1)));
+		recipes.add(new ComponentRecipe("midnightbloom")
+				.addIngredient(new ItemStack(RegistryManager.midnightBloom,1))
+				.addIngredient(new ItemStack(Blocks.OBSIDIAN,1))
+				.addIngredient(new ItemStack(Items.DRAGON_BREATH,1))
+				.addIngredient(new ItemStack(Items.DIAMOND,1)));
 	}
 	
 	public static boolean isValidEffectItem(ItemStack stack){

@@ -42,7 +42,7 @@ public class ComponentOrangeTulip extends ComponentBase{
 		if (type == EnumCastType.SPELL){
 			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
-				targets.get(i).getEntityData().setDouble("HBMOD_vuln", 0.4+0.2*potency);
+				targets.get(i).getEntityData().setDouble("RMOD_vuln", 0.4+0.2*potency);
 			}
 		}
 	}

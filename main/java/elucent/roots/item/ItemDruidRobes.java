@@ -80,7 +80,7 @@ public class ItemDruidRobes extends ItemArmor {
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
 		tooltip.add(TextFormatting.GRAY + "When full set equipped:");
-		tooltip.add(TextFormatting.BLUE + " +2 spell effiency.");
+		tooltip.add(TextFormatting.BLUE + " +2 Spell Efficiency");
 	}
 	
 	@SideOnly(Side.CLIENT)

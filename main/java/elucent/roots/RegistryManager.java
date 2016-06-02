@@ -4,6 +4,7 @@ import elucent.roots.block.BlockAltar;
 import elucent.roots.block.BlockBrazier;
 import elucent.roots.block.BlockDruidChalice;
 import elucent.roots.block.BlockImbuer;
+import elucent.roots.block.BlockMidnightBloom;
 import elucent.roots.block.BlockMortar;
 import elucent.roots.block.BlockStandingStoneT1;
 import elucent.roots.block.BlockStandingStoneT2;
@@ -48,7 +49,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class RegistryManager {
 	public static Item druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark;
-	public static Block mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
+	public static Block midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
 	public static ArmorMaterial druidRobesMaterial = EnumHelper.addArmorMaterial("druidRobes", "roots:druidRobes", 10, new int[]{1,5,6,2}, 20, null, 0);
@@ -97,6 +98,7 @@ public class RegistryManager {
 		GameRegistry.registerBlock(druidChalice = new BlockDruidChalice(),"druidChalice");
 		GameRegistry.registerBlock(standingStoneT1 = new BlockStandingStoneT1(),"standingStoneT1");
 		GameRegistry.registerBlock(standingStoneT2 = new BlockStandingStoneT2(),"standingStoneT2");
+		GameRegistry.registerBlock(midnightBloom = new BlockMidnightBloom(),"midnightBloom");
 		
 		/**
 		 * REGISTERING TILE ENTITIES

@@ -5,12 +5,15 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -59,9 +62,22 @@ public class EventManager {
 	}
 	
 	@SubscribeEvent
+	public void onLivingTick(LivingUpdateEvent event){
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")){
+			if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0){
+				event.getEntityLiving().getEntityData().setInteger("RMOD_skipTicks", event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks")-1);
+				if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") <= 0){
+					event.getEntityLiving().getEntityData().removeTag("RMOD_skipTicks");
+				}
+				event.setCanceled(true);
+			}
+		}
+	}
+	
+	@SubscribeEvent
 	public void onLivingDrops(LivingDropsEvent event){
-		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_dropItems")){
-			if (!event.getEntityLiving().getEntityData().getBoolean("HBMOD_dropItems")){
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_dropItems")){
+			if (!event.getEntityLiving().getEntityData().getBoolean("RMOD_dropItems")){
 				event.setCanceled(true);
 			}
 		}
@@ -69,8 +85,8 @@ public class EventManager {
 	
 	@SubscribeEvent
 	public void onLivingXP(LivingExperienceDropEvent event){
-		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_dropItems")){
-			if (!event.getEntityLiving().getEntityData().getBoolean("HBMOD_dropItems")){
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_dropItems")){
+			if (!event.getEntityLiving().getEntityData().getBoolean("RMOD_dropItems")){
 				event.setCanceled(true);
 			}
 		}
@@ -87,9 +103,9 @@ public class EventManager {
 	
 	@SubscribeEvent
 	public void onLivingDamage(LivingHurtEvent event){
-		if (event.getEntityLiving().getEntityData().hasKey("HBMOD_vuln")){
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_vuln")){
 			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("HBMOD_vuln"))));
-			event.getEntityLiving().getEntityData().removeTag("HBMOD_vuln");
+			event.getEntityLiving().getEntityData().removeTag("RMOD_vuln");
 		}
 	}
 	
