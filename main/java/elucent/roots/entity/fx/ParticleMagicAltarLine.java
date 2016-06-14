@@ -57,9 +57,9 @@ public class ParticleMagicAltarLine  extends Particle {
 	public void onUpdate(){
 		super.onUpdate();
 		float lifeCoeff = ((float)this.particleMaxAge-(float)this.particleAge)/(float)this.particleMaxAge;
-		this.particleRed = (float)colorR*(lifeCoeff)+(1.0f-lifeCoeff);
-		this.particleGreen = (float)colorG*(lifeCoeff)+(1.0f-lifeCoeff);
-		this.particleBlue = (float)colorB*(lifeCoeff)+(1.0f-lifeCoeff);
+		this.particleRed = Math.min(1.0f, (float)colorR*(1.5f-lifeCoeff)+lifeCoeff);
+		this.particleGreen = Math.min(1.0f, (float)colorG*(1.5f-lifeCoeff)+lifeCoeff);
+		this.particleBlue = Math.min(1.0f, (float)colorB*(1.5f-lifeCoeff)+lifeCoeff);
 		this.particleAlpha = 1.0f-lifeCoeff;
 		this.particleScale = 0.5f+2.0f*(1.0f-lifeCoeff);
 	}

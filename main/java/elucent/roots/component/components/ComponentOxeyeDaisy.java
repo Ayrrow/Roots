@@ -44,17 +44,16 @@ public class ComponentOxeyeDaisy extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer && !world.isRemote){
-				BlockPos pos = ((EntityPlayer)caster).rayTrace(4+2*size, 0).getBlockPos();
-				world.setWorldTime(world.getWorldTime()+100);
+				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
+				world.setWorldTime(world.getWorldTime()+100*(int)potency+100);
 				if (world.getTileEntity(pos) != null){
 					if (world.getTileEntity(pos) instanceof ITickable){
-						for (int i = 0; i < 20; i ++){
+						for (int i = 0; i < 40+20*(int)potency; i ++){
 							((ITickable)world.getTileEntity(pos)).update();
 						}
 					}
 				}
 				else {
-					System.out.println("NULL TE");
 				}
 			}
 		}

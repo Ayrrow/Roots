@@ -40,5 +40,4 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer {
 			}
 		}
 	}
-	
 }

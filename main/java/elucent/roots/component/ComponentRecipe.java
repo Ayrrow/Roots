@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import elucent.roots.RegistryManager;
+import elucent.roots.Util;
 
 public class ComponentRecipe {
 	public String effectResult = "";
@@ -77,7 +78,7 @@ public class ComponentRecipe {
 		for (int i = 0; i < materials.size(); i ++){
 			boolean endIteration = false;
 			for (int j = 0; j < tempItems.size() && !endIteration; j ++){
-				if (tempItems.get(j).getItem() == materials.get(i).getItem() && tempItems.get(j).getItemDamage() == materials.get(i).getItemDamage()){
+				if (Util.oreDictMatches(materials.get(i), tempItems.get(j))){
 					tempItems.remove(j);
 					endIteration = true;
 				}

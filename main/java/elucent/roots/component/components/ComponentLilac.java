@@ -3,6 +3,7 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.Random;
 
+import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.EnumCastType;
 import net.minecraft.potion.Potion;
@@ -40,7 +41,7 @@ public class ComponentLilac extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer && !world.isRemote){
-				BlockPos pos = ((EntityPlayer)caster).rayTrace(4+2*size, 0).getBlockPos();
+				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
 				growBlockSafe(world, pos, (int)potency);
 				if (random.nextBoolean()){
 					growBlockSafe(world, pos.east(), (int)potency);

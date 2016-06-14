@@ -90,8 +90,8 @@ public class ItemCrystalStaff extends Item {
 						double xpCost = (comp.xpCost + potency)*(1.0-0.25*(double)efficiency);
 						Random random = new Random();
 						double cost = 1.0-(1.0/(comp.xpCost));
-						if (random.nextDouble()*(1.0+1.0*efficiency) < cost){
-							((EntityPlayer)player).getFoodStats().addExhaustion(1);
+						if (random.nextDouble()*(1.0+0.5*efficiency) < cost){
+							((EntityPlayer)player).getFoodStats().addExhaustion(random.nextInt(comp.xpCost));
 						}
 						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
 						for (int i = 0 ; i < 90; i ++){
@@ -150,6 +150,10 @@ public class ItemCrystalStaff extends Item {
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count){
 		if (stack.hasTagCompound()){
 			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+			int potency = stack.getTagCompound().getInteger("potency");
+			int efficiency = stack.getTagCompound().getInteger("efficiency");
+			int size = stack.getTagCompound().getInteger("size");
+			comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
 			if (comp != null){
 				if (random.nextBoolean()){	
 					Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);

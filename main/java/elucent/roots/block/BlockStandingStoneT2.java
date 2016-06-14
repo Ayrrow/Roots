@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -104,6 +105,14 @@ public class BlockStandingStoneT2 extends Block {
 		else {
 			world.setBlockToAir(pos.down());
 		}
+	}
+	
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos){
+		if (world.getBlockState(pos.up()) == Blocks.AIR.getDefaultState()){
+			return true;
+		}
+		return false;
 	}
 	
 	public BlockStandingStoneT2(){

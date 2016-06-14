@@ -1,10 +1,14 @@
 package elucent.roots.component;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
+import elucent.roots.item.ItemDruidRobes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +23,8 @@ public class ComponentBase {
 	public Vec3d primaryColor = new Vec3d(0, 0, 0);
 	public Vec3d secondaryColor = new Vec3d(0, 0, 0);
 	public int xpCost = 0;
+	public boolean singleCast = true;
+	Random random = new Random();
 	TextFormatting textColor = TextFormatting.WHITE;
 	
 	public ComponentBase setPrimaryColor(double r, double g, double b){
@@ -93,5 +99,8 @@ public class ComponentBase {
 	
 	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		
+	}
+	
+	public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size){
 	}
 }

@@ -10,11 +10,29 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class Util {
 	public static Random random = new Random();
 	public static ArrayList<IBlockState> oreList = new ArrayList<IBlockState>();
 	public static ArrayList<Block> naturalBlocks = new ArrayList<Block>();
+	
+	public static BlockPos getRayTrace(World world, EntityPlayer player, int reachDistance){
+		double x = player.posX;
+		double y = player.posY + player.getEyeHeight();
+		double z = player.posZ;
+		for (int i = 0; i < reachDistance*10.0; i ++){
+			x += player.getLookVec().xCoord*0.1;
+			y += player.getLookVec().yCoord*0.1;
+			z += player.getLookVec().zCoord*0.1;
+			if (world.getBlockState(new BlockPos(x,y,z)).getBlock() != Blocks.AIR){
+				return new BlockPos(x,y,z);
+			}
+		}
+		return new BlockPos(x,y,z);
+	}
 	
 	public static void initOres(){
 		oreList.add(Blocks.IRON_ORE.getDefaultState());
@@ -89,6 +107,21 @@ public class Util {
 		return oreList.get(random.nextInt(oreList.size()));
 	}
 	
+	public static boolean oreDictMatches(ItemStack stack1, ItemStack stack2){
+		if (OreDictionary.itemMatches(stack1, stack2, true)){
+			return true;
+		}
+		else {
+			int[] oreIds = OreDictionary.getOreIDs(stack1);
+			for (int i = 0; i < oreIds.length; i ++){
+				if (OreDictionary.containsMatch(true, OreDictionary.getOres(OreDictionary.getOreName(oreIds[i])), stack2)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public static int intColor(int r, int g, int b){
 		return (r*65536 + g*256 + b);
 	}
@@ -123,7 +156,7 @@ public class Util {
 			for (int j = 0; j < available.size(); j ++){
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i ++){
-					if (available.get(j).getItem() == recipe.get(i).getItem() && available.get(j).getItemDamage() == recipe.get(i).getItemDamage()){
+					if (oreDictMatches(available.get(j),recipe.get(i))){
 						recipe.remove(i);
 						endIteration = true;
 					}
@@ -154,7 +187,7 @@ public class Util {
 			for (int j = 0; j < available.size(); j ++){
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i ++){
-					if (available.get(j).getItem() == recipe.get(i).getItem() && available.get(j).getItemDamage() == recipe.get(i).getItemDamage()){
+					if (oreDictMatches(available.get(j),recipe.get(i))){
 						recipe.remove(i);
 						endIteration = true;
 					}

@@ -55,9 +55,9 @@ public class ParticleMagicLine  extends Particle {
 	public void onUpdate(){
 		super.onUpdate();
 		float lifeCoeff = ((float)this.particleMaxAge-(float)this.particleAge)/(float)this.particleMaxAge;
-		this.particleRed = (float)colorR*(1.0f-lifeCoeff)+lifeCoeff;
-		this.particleGreen = (float)colorG*(1.0f-lifeCoeff)+lifeCoeff;
-		this.particleBlue = (float)colorB*(1.0f-lifeCoeff)+lifeCoeff;
+		this.particleRed = Math.min(1.0f, (float)colorR*(1.5f-lifeCoeff)+lifeCoeff);
+		this.particleGreen = Math.min(1.0f, (float)colorG*(1.5f-lifeCoeff)+lifeCoeff);
+		this.particleBlue = Math.min(1.0f, (float)colorB*(1.5f-lifeCoeff)+lifeCoeff);
 		this.particleAlpha = lifeCoeff;
 	}
 }

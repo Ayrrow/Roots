@@ -8,8 +8,10 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +38,9 @@ public class Roots
     @SidedProxy(clientSide = "elucent.roots.proxy.ClientProxy", serverSide = "elucent.roots.proxy.ServerProxy")
     public static CommonProxy proxy;
     
+    @Instance("roots")
+    public static Roots instance;
+    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
     	MinecraftForge.EVENT_BUS.register(new EventManager());
@@ -45,5 +50,10 @@ public class Roots
     @EventHandler
     public void init(FMLInitializationEvent event){
     	proxy.init(event);
+    }
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event){
+    	proxy.postInit(event);
     }
 }

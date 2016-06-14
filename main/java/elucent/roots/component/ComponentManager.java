@@ -5,10 +5,12 @@ import java.util.List;
 
 import elucent.roots.RegistryManager;
 import elucent.roots.component.components.ComponentAllium;
+import elucent.roots.component.components.ComponentApple;
 import elucent.roots.component.components.ComponentAzureBluet;
 import elucent.roots.component.components.ComponentBlueOrchid;
 import elucent.roots.component.components.ComponentChorus;
 import elucent.roots.component.components.ComponentDandelion;
+import elucent.roots.component.components.ComponentFlareOrchid;
 import elucent.roots.component.components.ComponentLilac;
 import elucent.roots.component.components.ComponentLilyPad;
 import elucent.roots.component.components.ComponentMidnightBloom;
@@ -19,6 +21,7 @@ import elucent.roots.component.components.ComponentPeony;
 import elucent.roots.component.components.ComponentPinkTulip;
 import elucent.roots.component.components.ComponentPoisonousPotato;
 import elucent.roots.component.components.ComponentPoppy;
+import elucent.roots.component.components.ComponentRadiantDaisy;
 import elucent.roots.component.components.ComponentRedTulip;
 import elucent.roots.component.components.ComponentRose;
 import elucent.roots.component.components.ComponentSunflower;
@@ -51,7 +54,10 @@ public class ComponentManager {
 		components.add(new ComponentPinkTulip().setPrimaryColor(255,0,51).setSecondaryColor(255,0,249).setTextColor(TextFormatting.LIGHT_PURPLE));
 		components.add(new ComponentOxeyeDaisy().setPrimaryColor(255,254,206).setSecondaryColor(52,0,74).setTextColor(TextFormatting.WHITE));
 		components.add(new ComponentLilyPad().setPrimaryColor(36,255,167).setSecondaryColor(8,0,255).setTextColor(TextFormatting.BLUE));
+		components.add(new ComponentApple().setPrimaryColor(255,43,89).setSecondaryColor(255,43,43).setTextColor(TextFormatting.DARK_RED));
 		components.add(new ComponentMidnightBloom().setPrimaryColor(12,6,36).setSecondaryColor(18,18,18).setTextColor(TextFormatting.DARK_PURPLE));
+		components.add(new ComponentFlareOrchid().setPrimaryColor(255,60,18).setSecondaryColor(255,60,18).setTextColor(TextFormatting.RED));
+		components.add(new ComponentRadiantDaisy().setPrimaryColor(255,255,255).setSecondaryColor(255,255,255).setTextColor(TextFormatting.WHITE));
 		
 		recipes.add(new ComponentRecipe("rosebush")
 					.addIngredient(new ItemStack(Blocks.DOUBLE_PLANT,1,4))
@@ -60,7 +66,7 @@ public class ComponentManager {
 		recipes.add(new ComponentRecipe("dandelion")
 					.addIngredient(new ItemStack(Blocks.YELLOW_FLOWER,1))
 					.addIngredient(new ItemStack(Items.STRING,1))
-					.addIngredient(new ItemStack(Items.FEATHER,1,1)));
+					.addIngredient(new ItemStack(Items.FEATHER,1)));
 		recipes.add(new ComponentRecipe("chorus")
 					.addIngredient(new ItemStack(Items.CHORUS_FRUIT,1))
 					.addIngredient(new ItemStack(Items.ENDER_PEARL,1))
@@ -98,7 +104,7 @@ public class ComponentManager {
 					.addIngredient(new ItemStack(Blocks.SAPLING,1,2)));
 		recipes.add(new ComponentRecipe("redtulip")
 					.addIngredient(new ItemStack(Blocks.RED_FLOWER,1,4))
-					.addIngredient(new ItemStack(Blocks.NETHER_BRICK_FENCE,1))
+					.addIngredient(new ItemStack(Items.NETHERBRICK,1))
 					.addIngredient(new ItemStack(Items.QUARTZ,1))
 					.addIngredient(new ItemStack(Blocks.SAND,1,1)));
 		recipes.add(new ComponentRecipe("blueorchid")
@@ -142,6 +148,16 @@ public class ComponentManager {
 				.addIngredient(new ItemStack(Blocks.OBSIDIAN,1))
 				.addIngredient(new ItemStack(Items.DRAGON_BREATH,1))
 				.addIngredient(new ItemStack(Items.DIAMOND,1)));
+		recipes.add(new ComponentRecipe("flareorchid")
+				.addIngredient(new ItemStack(RegistryManager.flareOrchid,1))
+				.addIngredient(new ItemStack(Blocks.NETHERRACK,1))
+				.addIngredient(new ItemStack(Items.MAGMA_CREAM,1))
+				.addIngredient(new ItemStack(Items.BLAZE_ROD,1)));
+		recipes.add(new ComponentRecipe("radiantdaisy")
+				.addIngredient(new ItemStack(RegistryManager.radiantDaisy,1))
+				.addIngredient(new ItemStack(Blocks.GLOWSTONE,1))
+				.addIngredient(new ItemStack(Blocks.GLOWSTONE,1))
+				.addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK,1)));
 	}
 	
 	public static boolean isValidEffectItem(ItemStack stack){
@@ -154,6 +170,15 @@ public class ComponentManager {
 			}
 		}
 		return false;
+	}
+	
+	public static ComponentRecipe getRecipe(String name){
+		for (int i = 0; i < recipes.size(); i ++){
+			if (recipes.get(i).effectResult == name){
+				return recipes.get(i);
+			}
+		}
+		return null;
 	}
 	
 	public static ComponentRecipe getRecipe(List<ItemStack> items){

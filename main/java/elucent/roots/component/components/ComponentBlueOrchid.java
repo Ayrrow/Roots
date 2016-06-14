@@ -49,14 +49,7 @@ public class ComponentBlueOrchid extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer && !world.isRemote){
-				BlockPos pos = ((EntityPlayer)caster).rayTrace(4+2*size, 0).getBlockPos();
-				ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX()-size,pos.getY()-size,pos.getZ()-size,pos.getX()+size,pos.getY()+size,pos.getZ()+size));
-				for (int i = 0; i < targets.size(); i ++){
-					if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-						targets.get(i).moveEntity(0, 3, 0);
-						targets.get(i).motionY = 0.65+random.nextDouble()+0.25*potency;
-					}
-				}
+				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
 				IBlockState state = world.getBlockState(pos);
 				Block block = world.getBlockState(pos).getBlock();
 				if (block == Blocks.STONE || block == Blocks.DIRT || block == Blocks.GRASS || block == Blocks.SAND || block == Blocks.GRAVEL){
@@ -65,6 +58,13 @@ public class ComponentBlueOrchid extends ComponentBase{
 						world.setBlockState(pos, state);
 					}
 					world.setBlockState(pos.up(), state);
+					ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX()-size,pos.getY()-size,pos.getZ()-size,pos.getX()+size,pos.getY()+size,pos.getZ()+size));
+					for (int i = 0; i < targets.size(); i ++){
+						if (targets.get(i).getUniqueID() != caster.getUniqueID()){
+							targets.get(i).moveEntity(0, 3, 0);
+							targets.get(i).motionY = 0.65+random.nextDouble()+0.25*potency;
+						}
+					}
 					if (random.nextInt(3) == 0){
 						world.setBlockState(pos.up().west().north(), state);
 					}

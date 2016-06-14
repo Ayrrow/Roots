@@ -25,12 +25,6 @@ public class ComponentDandelion extends ComponentBase{
 		
 	}
 	
-	/*
-	
-	TODO: Make a decent blast effect
-	
-	*/
-	
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	

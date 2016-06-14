@@ -7,6 +7,7 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 
 import elucent.roots.PlayerManager;
+import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
@@ -42,26 +43,8 @@ public class ComponentPoisonousPotato extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){
 			if (caster instanceof EntityPlayer && !world.isRemote){
-				BlockPos pos = ((EntityPlayer)caster).rayTrace(4+2*size, 0).getBlockPos();
+				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
 				world.addWeatherEffect(new EntityLightningBolt(world,pos.getX(),pos.getY(),pos.getZ(),false));
-			}
-		}
-		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
-			for (int i = 0; i < targets.size(); i ++){
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),40,(int)potency));
-				}
-			}
-		}
-	}
-	
-	@Override
-	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.INCENSE){
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-5.5-3.0*size,y-5.5-3.0*size,z-5.5-3.0*size,x+5.5+3.0*size,y+5.5+3.0*size,z+5.5+3.0*size));
-			for (int i = 0; i < targets.size(); i ++){
-				targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),40,(int)potency));
 			}
 		}
 	}

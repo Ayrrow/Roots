@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import elucent.roots.PlayerManager;
+import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
@@ -42,7 +43,7 @@ public class ComponentAzureBluet extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer && !world.isRemote){
-				BlockPos pos = ((EntityPlayer)caster).rayTrace(size, 0).getBlockPos();
+				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
 				destroyBlockSafe(world, pos, (int)potency);
 				if (random.nextBoolean()){
 					destroyBlockSafe(world, pos.up(), (int)potency);

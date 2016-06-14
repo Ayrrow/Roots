@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 public class ComponentAllium extends ComponentBase{
 	Random random = new Random();
 	public ComponentAllium(){
-		super("allium","Allium's Chaos",Blocks.RED_FLOWER,3);	
+		super("allium","Allium's Ruin",Blocks.RED_FLOWER,3);	
 	}
 	
 	public void destroyBlockSafe(World world, BlockPos pos, int potency){

@@ -4,6 +4,8 @@ import elucent.roots.Roots;
 import elucent.roots.tileentity.TileEntityImbuer;
 import elucent.roots.tileentity.TileEntityMortar;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,9 +23,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockMidnightBloom extends Block {
+public class BlockMidnightBloom extends BlockBush {
 	public BlockMidnightBloom(){
-		super(Material.PLANTS);
+		super();
 		setUnlocalizedName("midnightBloom");
 		setCreativeTab(Roots.tab);
 	}

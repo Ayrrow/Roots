@@ -59,67 +59,10 @@ public class ItemDruidArmor extends ItemArmor {
 	}
 	
 	@Override
-	public Multimap getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack){
-        Multimap multimap = super.getAttributeModifiers(slot, stack);
-        if (stack.getItem() == RegistryManager.druidArmorHead && slot == EntityEquipmentSlot.HEAD){
-        	multimap.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), 4.0, 0));
-        }
-        if (stack.getItem() == RegistryManager.druidArmorChest && slot == EntityEquipmentSlot.CHEST){
-        	multimap.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), 4.0, 0));
-        }
-        if (stack.getItem() == RegistryManager.druidArmorLegs && slot == EntityEquipmentSlot.LEGS){
-        	multimap.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), 4.0, 0));
-        }
-        if (stack.getItem() == RegistryManager.druidArmorBoots && slot == EntityEquipmentSlot.FEET){
-        	multimap.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), 4.0, 0));
-        }
-        return multimap;
-    }
-	
-	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
-		if (!stack.hasTagCompound()){
-			NBTTagCompound attribute = new NBTTagCompound();
-			if (stack.getItem() == RegistryManager.druidArmorHead){
-				attribute.setString("Slot", EntityEquipmentSlot.HEAD.getName());
-			}
-			if (stack.getItem() == RegistryManager.druidArmorChest){
-				attribute.setString("Slot", EntityEquipmentSlot.CHEST.getName());
-			}
-			if (stack.getItem() == RegistryManager.druidArmorLegs){
-				attribute.setString("Slot", EntityEquipmentSlot.LEGS.getName());
-			}
-			if (stack.getItem() == RegistryManager.druidArmorBoots){
-				attribute.setString("Slot", EntityEquipmentSlot.FEET.getName());
-			}
-			attribute.setString("AttributeName", "generic.maxHealth");
-			attribute.setString("Name","Health boost");
-			attribute.setDouble("Amount",4.0);
-			attribute.setInteger("operation", 0);
-			attribute.setInteger("UUIDLeast", 1);
-			attribute.setInteger("UUIDMost", 1);
-			NBTTagList modifiers = new NBTTagList();
-			modifiers.appendTag(attribute);
-			NBTTagCompound itemTag = new NBTTagCompound();
-			itemTag.setTag("AttributeModifiers", modifiers);
-			stack.setTagCompound(itemTag);
-		}
-		EntityEquipmentSlot slot = null;
-		if (stack.getItem() == RegistryManager.druidArmorHead){
-			slot = EntityEquipmentSlot.HEAD;
-		}
-		if (stack.getItem() == RegistryManager.druidArmorChest){
-			slot = EntityEquipmentSlot.CHEST;
-		}
-		if (stack.getItem() == RegistryManager.druidArmorLegs){
-			slot = EntityEquipmentSlot.LEGS;
-		}
-		if (stack.getItem() == RegistryManager.druidArmorBoots){
-			slot = EntityEquipmentSlot.FEET;
-		}
 		tooltip.add("");
-		tooltip.add(TextFormatting.GRAY+"When equipped:");
-		tooltip.add(TextFormatting.BLUE+" +"+this.getArmorMaterial().getDamageReductionAmount(slot) + " Armor");
+		tooltip.add(TextFormatting.GRAY + "When full set equipped:");
+		tooltip.add(TextFormatting.BLUE + " Increased Health Regeneration");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -138,6 +81,9 @@ public class ItemDruidArmor extends ItemArmor {
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack){
 		if (stack.isItemDamaged() && rnd.nextInt(40) == 0){
 			stack.setItemDamage(stack.getItemDamage()-1);
+		}
+		if (rnd.nextInt(40) == 0){
+			player.heal(1);
 		}
 	}
 	

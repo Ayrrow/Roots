@@ -43,8 +43,10 @@ public class EventManager {
 			}
 		}
 		if (block == Blocks.NETHER_WART){
-			if (random.nextInt(20) == 0){
-				event.getDrops().add(new ItemStack(RegistryManager.infernalStem,1));
+			if (((BlockCrops) block).isMaxAge(event.getState())){
+				if (random.nextInt(20) == 0){
+					event.getDrops().add(new ItemStack(RegistryManager.infernalStem,1));
+				}
 			}
 		}
 		if (block == Blocks.CHORUS_FLOWER){
@@ -93,18 +95,9 @@ public class EventManager {
 	}
 	
 	@SubscribeEvent
-	public void onBlockPlaced(BlockEvent.PlaceEvent event){
-		if (event.getPlacedBlock().getBlock() == RegistryManager.standingStoneT2){
-			if (event.getWorld().getBlockState(event.getPos().up()).getBlock() != Blocks.AIR){
-				event.setCanceled(true);
-			}
-		}
-	}
-	
-	@SubscribeEvent
 	public void onLivingDamage(LivingHurtEvent event){
 		if (event.getEntityLiving().getEntityData().hasKey("RMOD_vuln")){
-			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("HBMOD_vuln"))));
+			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("RMOD_vuln"))));
 			event.getEntityLiving().getEntityData().removeTag("RMOD_vuln");
 		}
 	}

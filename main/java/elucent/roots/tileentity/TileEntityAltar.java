@@ -82,14 +82,18 @@ public class TileEntityAltar extends TEBase implements ITickable {
 		if (inventory.size() > 0){
 			NBTTagList list = new NBTTagList();
 			for (int i = 0; i < inventory.size(); i ++){;
-				list.appendTag(inventory.get(i).writeToNBT(new NBTTagCompound()));
+				if (inventory.get(i) != null){
+					list.appendTag(inventory.get(i).writeToNBT(new NBTTagCompound()));
+				}
 			}
 			tag.setTag("inventory",list);
 		}
 		if (incenses.size() > 0){
 			NBTTagList list = new NBTTagList();
 			for (int i = 0; i < incenses.size(); i ++){;
-				list.appendTag(incenses.get(i).writeToNBT(new NBTTagCompound()));
+				if (incenses.get(i) != null){
+					list.appendTag(incenses.get(i).writeToNBT(new NBTTagCompound()));
+				}
 			}
 			tag.setTag("incenses",list);
 		}

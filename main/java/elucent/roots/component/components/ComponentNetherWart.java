@@ -40,16 +40,6 @@ public class ComponentNetherWart extends ComponentBase{
 					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
 				}
 			}
-			ArrayList<EntityItem> items = (ArrayList<EntityItem>) world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x-size*0.5,y-size*0.5,z-size*0.5,x+size*0.5,y+size*0.5,z+size*0.5));
-			for (int i = 0; i < targets.size(); i ++){
-				if (FurnaceRecipes.instance().getSmeltingResult(targets.get(i).getActiveItemStack()) != null){
-					if (random.nextInt(8-(int)potency*2) == 0){
-						ItemStack result = FurnaceRecipes.instance().getSmeltingResult(targets.get(i).getActiveItemStack());
-						world.spawnEntityInWorld(new EntityItem(world,targets.get(i).posX,targets.get(i).posY,targets.get(i).posZ,new ItemStack(result.getItem(),1,result.getItemDamage())));
-						targets.get(i).getActiveItemStack().stackSize --;
-					}
-				}
-			}
 		}
 	}
 }
